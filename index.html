@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Express Panel | 彰師通 NcueLink</title>
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="navbar">
+    <h1>
+      <a href="https://sites.google.com/view/ncuelink/"><img src="favicon.ico" alt="彰師通" width="25" height="25"> 彰師通 NcueLink</a>
+      <span style="font-size:small;"><i>Express Panel</i></span>
+    </h1>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#">首頁</a></li>
+        <li><a href="https://aps.ncue.edu.tw/ncueact/" target="_blank">行動彰師</a></li>
+        <li><a href="https://apkpure.com/tw/p/developer.angus.ncuelink" target="_blank">APP</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <section class="notifications">
+      <!-- <h2>通知</h2> -->
+      <div class="notification info">✨ 全新 Express Panel 提供一個簡潔、快速的入口！</div>
+      <!-- <div class="notification warning">🚧 系統測試中！</div> -->
+    </section>
+
+    <section class="quick-links">
+      <h2>常用功能</h2>
+      <div class="links-grid">
+        <a href="https://lihi2.cc/dfvR0/website" target="_blank" class="link-card">
+          📚 雲端學院
+        </a>
+        <a href="https://lihi2.cc/KmgPE/website" target="_blank" class="link-card">
+          🏫 教務系統
+        </a>        
+        <a href="https://lihi2.cc/eLxfz/website" target="_blank" class="link-card">
+          🎲 活動報名
+        </a>
+        <a href="https://lihi2.cc/Q5xEi/website" target="_blank" class="link-card">
+          🤒 請假管理
+        </a>
+        <a href="https://lihi2.cc/lIFCF/website" target="_blank" class="link-card">
+          📖 討論室預約
+        </a>
+        <a href="https://lihi2.cc/fTnPr/website" target="_blank" class="link-card">
+          📬 電子信箱
+        </a>
+      </div>
+      <h2>校園資訊</h2>
+      <div class="links-grid">
+        <a href="https://lihi2.cc/w0xlb/website" target="_blank" class="link-card">
+          📢 校園公告
+        </a>
+        <a href="https://sites.google.com/view/ncuelink/校園資訊/行事曆/上學期" target="_blank" class="link-card">
+          📅 行事曆
+        </a>
+        <a href="https://lihi2.cc/BfB1A/website" target="_blank" class="link-card">
+          🏛️ 館藏查詢
+        </a>
+        <a href="https://lihi2.cc/CtNuQ/website" target="_blank" class="link-card">
+          🔧 報修系統
+        </a>
+        <a href="https://lihi2.cc/88Bw7/website" target="_blank" class="link-card">
+          🏥 特約醫院診所
+        </a>        
+        <a href="https://lihi2.cc/AVxmB/website" target="_blank" class="link-card">
+          📒 彰師Wiki
+        </a>
+      </div>
+      <h2>選課專區</h2>
+      <div class="links-grid">
+        <a href="https://lihi2.cc/FkkfV/website" target="_blank" class="link-card">
+          📌 選課資訊
+        </a>
+        <a href="https://webap2.ncue.edu.tw/Student/BaseUser/LoginSSO" target="_blank" class="link-card">
+          🏫 教務系統 2
+        </a>
+        <a href="https://webap3s.ncue.edu.tw/Student/BaseUser/LoginSSO" target="_blank" class="link-card">
+          🏫 教務系統 3
+        </a>
+        <a href="https://lihi2.cc/ZFBLw/website" target="_blank" class="link-card">
+          📘 開課查詢
+        </a>
+        <a href="https://ncuelink.github.io/site/dean/biology" target="_blank" class="link-card">
+          🧬 生物系專用
+        </a>
+        <a href="https://lihi2.cc/6hR2x/website" target="_blank" class="link-card">
+          🦢 彰師小生物™
+        </a>
+      </div>
+    </section>
+
+    <section class="notifications">
+      <!-- <h2>通知</h2> -->
+      <div class="notification warning">🤔 還需要更多功能？歡迎<a href="#" target="_blank">告訴我們</a>！</div>
+    </section>
+    
+    <!-- <section class="campus-news">
+      <h2>校園公告</h2>
+      <ul id="rss-feed" class="rss-list">
+        <li>載入中...</li>
+      </ul>
+    </section> -->
+  </main>
+
+  <iframe
+        src="https://ncuelink.github.io/site/"
+        width="100%"
+        height="700"
+        frameborder="0"
+        allowfullscreen="true"
+      >
+      </iframe>
+
+  <!-- <iframe
+        src="https://ncuelink.github.io/site/dean/biology"
+        width="100%"
+        height="720"
+        title="生物系課程查詢"
+        frameborder="0"
+        allowfullscreen="true"
+      >
+      </iframe> -->
+
+  <footer class="footer">
+    <p>© 2021-2025&ensp;彰師通 NcueLink.&ensp;All Rights Reserved.</p>
+  </footer>
+
+  <!-- <script>
+    async function loadRSS() {
+      const rssFeed = document.getElementById('rss-feed');
+      try {
+        const response = await fetch('https://aps.ncue.edu.tw/odedi/rss_odedi.php?source=1');
+        const text = await response.text();
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(text, "application/xml");
+        const items = xml.querySelectorAll("item");
+
+        rssFeed.innerHTML = ""; // Clear the loading message
+
+        items.forEach(item => {
+          const title = item.querySelector("title").textContent;
+          const link = item.querySelector("link").textContent;
+          const listItem = document.createElement("li");
+          const anchor = document.createElement("a");
+
+          anchor.href = link;
+          anchor.target = "_blank";
+          anchor.textContent = title;
+
+          listItem.appendChild(anchor);
+          rssFeed.appendChild(listItem);
+        });
+      } catch (error) {
+        rssFeed.innerHTML = "<li>無法載入公告，請稍後再試。</li>";
+      }
+    }
+
+    loadRSS();
+  </script> -->
+</body>
+</html>
