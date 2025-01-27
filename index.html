@@ -6,6 +6,7 @@
   <title>Express Panel | 彰師通 NcueLink</title>
   <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <link rel="stylesheet" href="css/styles.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
   <header class="navbar">
@@ -25,7 +26,7 @@
   <main class="main-content">
     <section class="notifications">
       <!-- <h2>通知</h2> -->
-      <div class="notification info">✨ 全新登場 Express Panel 提供一個簡單、快速的入口！</div>
+      <div class="notification info">✨ 全新 Express Panel 提供一個簡單、快速的入口！</div>
       <!-- <div class="notification warning">🚧 系統測試中！</div> -->
     </section>
 
@@ -100,22 +101,22 @@
       <div class="notification warning">🤔 還需要更多功能？歡迎<a href="https://tellonym.me/ncuelink" target="_blank">告訴我們</a>！</div>
     </section>
     
-    <!-- <section class="campus-news">
+    <section class="campus-news">
       <h2>校園公告</h2>
-      <ul id="rss-feed" class="rss-list">
-        <li>載入中...</li>
+      <ul id="rss-feed" class="card-list">
+        <li>Loading...🚀</li>
       </ul>
-    </section> -->
+    </section>
   </main>
 
-  <iframe
+  <!-- <iframe
         src="https://ncuelink.github.io/site/"
         width="100%"
         height="700"
         frameborder="0"
         allowfullscreen="true"
       >
-      </iframe>
+      </iframe> -->
 
   <!-- <iframe
         src="https://ncuelink.github.io/site/dean/biology"
@@ -130,6 +131,45 @@
   <footer class="footer">
     <p>© 2021-2025&ensp;彰師通 NcueLink.&ensp;All Rights Reserved.</p>
   </footer>
+
+  <script>
+    function loadData(data) {
+      const rssFeed = document.getElementById('rss-feed');
+      rssFeed.innerHTML = ""; // Clear the loading message
+
+      data.forEach(item => {
+        const listItem = document.createElement("li");
+        listItem.className = "card";
+
+        const date = document.createElement("div");
+        date.className = "date";
+        date.textContent = item.Date;
+
+        const content = document.createElement("div");
+        content.className = "content";
+
+        const anchor = document.createElement("a");
+        anchor.href = item.URL;
+        anchor.target = "_blank";
+        anchor.textContent = item.Content;
+
+        content.appendChild(anchor);
+        listItem.appendChild(date);
+        listItem.appendChild(content);
+        rssFeed.appendChild(listItem);
+      });
+    }
+
+    // Google App Script 網頁應用程式 URL
+    var url = "https://script.google.com/macros/s/AKfycbx09VvhU52vKsGgVYUt9vHGrVG9h5EBFeCuXhEOzBrmMB1N4xquVVP1R4JJZP45dbSY/exec"+"?callback=loadData";
+
+    jQuery.ajax({
+      crossDomain: true,
+      url: url,
+      method: "GET",
+      dataType: "jsonp"
+    });
+  </script>
 
   <!-- <script>
     async function loadRSS() {
