@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校園公告 | 彰師通 NcueLink</title>
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <!-- <header class="navbar">
+    <h1>
+      <a href="https://sites.google.com/view/ncuelink/"><img src="img/favicon.ico" alt="彰師通" width="25" height="25"> 彰師通 NcueLink</a>
+      <span style="font-size:small;"><i>Express Panel 測試版</i></span>
+    </h1>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="https://sites.google.com/view/ncuelink/">首頁</a></li>
+        <li><a href="https://aps.ncue.edu.tw/ncueact/index.php" target="_blank">行動彰師</a></li>
+        <li><a href="https://apkpure.com/tw/p/developer.angus.ncuelink" target="_blank">APP</a></li>
+      </ul>
+    </nav>
+  </header> -->
+
+  <main class="main-content">
+    <section class="notifications">
+      <!-- <h2>通知</h2> -->
+      <div class="notification info">✨ 歡迎使用 彰師通 NcueLink ~~~</div>
+      <div class="notification warning">🚧 行動彰師無法登入<a href="https://www.dcard.tw/f/ncue/p/240250433?cid=b27434e1-7452-4189-b731-bdf20ee0314a" target="_blank">解決方式</a>：
+        <span style="font-weight: normal;"><br><br>&emsp;- 方法 1：「長按」行動彰師右上登入按鈕，即可正常登入！<br>&emsp;- 方法 2：功能表 > 設定 > 開啟「改用學校網頁版行動彰師」</div></span></div>
+    </section>
+    
+    <section class="campus-news">
+      <h2>校園公告</h2>
+      <ul id="rss-feed" class="card-list">
+        <li>Loading...🚀</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2021-2025&ensp;彰師通 NcueLink.&ensp;All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    function loadData(data) {
+      const rssFeed = document.getElementById('rss-feed');
+      rssFeed.innerHTML = ""; // Clear the loading message
+
+      data.forEach(item => {
+        const listItem = document.createElement("li");
+        listItem.className = "card";
+
+        const date = document.createElement("div");
+        date.className = "date";
+        date.textContent = item.Date;
+
+        const content = document.createElement("div");
+        content.className = "content";
+
+        const anchor = document.createElement("a");
+        anchor.href = item.URL;
+        anchor.target = "_blank";
+        anchor.textContent = item.Content;
+
+        content.appendChild(anchor);
+        listItem.appendChild(date);
+        listItem.appendChild(content);
+        rssFeed.appendChild(listItem);
+      });
+    }
+
+    // Google App Script 網頁應用程式 URL
+    var url = "https://script.google.com/macros/s/AKfycbx09VvhU52vKsGgVYUt9vHGrVG9h5EBFeCuXhEOzBrmMB1N4xquVVP1R4JJZP45dbSY/exec"+"?callback=loadData";
+
+    jQuery.ajax({
+      crossDomain: true,
+      url: url,
+      method: "GET",
+      dataType: "jsonp"
+    });
+  </script>
+</body>
+</html>
