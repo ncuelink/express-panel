@@ -32,17 +32,16 @@
     </section>
     
     <section class="campus-news">
-      <h2>校園公告</h2>
+      <h2>📢 校園公告</h2>
       <ul id="rss-feed" class="card-list">
-        <!-- <li>Loading...🚀</li> -->
-        <li class="card"><div class="date">Loading...🚀</div><div class="content">怕你太無聊，說個笑話給你聽😄</div></li>
-        <li class="card"><div class="date">一顆星星有多重?</div><div class="content">8克，因為星巴克。</div></li>
-        <li class="card"><div class="date">鴨子哪裡最瘦?</div><div class="content">嘴，因為鴨嘴獸。</div></li>
-        <li class="card"><div class="date">鹿跟車誰會贏?</div><div class="content">鹿，因為露營車。</div></li>        
-        <li class="card"><div class="date">蚊子不叮哪一種動物?</div><div class="content">狗，因為布丁狗。</div></li>
-        <li class="card"><div class="date">瓶蓋打不開要找誰?</div><div class="content">孔雀，因為孔雀開瓶。</div></li>
-        <li class="card"><div class="date">小明進去7-11為什麼坐輪椅出來?</div><div class="content">因為他繳費(腳廢)了。</div></li>
-        <li class="card"><div class="date">要怎樣才能讓珍珠奶茶變大杯?</div><div class="content">對它念大杯咒。</div></li>
+        <li>Loading...</li>
+      </ul>
+    </section>
+
+    <section class="campus-news">
+      <h2>🎲 活動報名</h2>
+      <ul id="campaign-feed" class="card-list">
+        <li>Loading...</li>
       </ul>
     </section>
   </main>
@@ -81,6 +80,90 @@
 
     // Google App Script 網頁應用程式 URL
     var url = "https://script.google.com/macros/s/AKfycbx09VvhU52vKsGgVYUt9vHGrVG9h5EBFeCuXhEOzBrmMB1N4xquVVP1R4JJZP45dbSY/exec"+"?callback=loadData";
+
+    jQuery.ajax({
+      crossDomain: true,
+      url: url,
+      method: "GET",
+      dataType: "jsonp"
+    });
+  </script>
+
+  <script>
+    function loadData(data) {
+      const rssFeed = document.getElementById('rss-feed');
+      rssFeed.innerHTML = ""; // Clear the loading message
+
+      data.forEach(item => {
+        const listItem = document.createElement("li");
+        listItem.className = "card";
+
+        const date = document.createElement("div");
+        date.className = "date";
+        date.textContent = item.Date;
+
+        const content = document.createElement("div");
+        content.className = "content";
+
+        const anchor = document.createElement("a");
+        anchor.href = item.URL;
+        anchor.target = "_blank";
+        anchor.textContent = item.Content;
+
+        content.appendChild(anchor);
+        listItem.appendChild(date);
+        listItem.appendChild(content);
+        rssFeed.appendChild(listItem);
+      });
+    }
+
+    // Google App Script 網頁應用程式 URL
+    var url = "https://script.google.com/macros/s/AKfycbx09VvhU52vKsGgVYUt9vHGrVG9h5EBFeCuXhEOzBrmMB1N4xquVVP1R4JJZP45dbSY/exec"+"?callback=loadData";
+
+    jQuery.ajax({
+      crossDomain: true,
+      url: url,
+      method: "GET",
+      dataType: "jsonp"
+    });
+  </script>
+
+  <script>
+    function loadData2(data) {
+      const rssFeed = document.getElementById('campaign-feed');
+      rssFeed.innerHTML = ""; // Clear the loading message
+
+      data.forEach(item => {
+        const listItem = document.createElement("li");
+        listItem.className = "card";
+
+        const date = document.createElement("div");
+        date.className = "date";
+        date.textContent = item.活動日期;
+
+        const content = document.createElement("div");
+        content.className = "content";
+
+        const anchor = document.createElement("a");
+        anchor.href = item.URL;
+        anchor.target = "_blank";
+        anchor.textContent = item.活動名稱;
+
+        const status = document.createElement("div");
+        status.className = "date";
+        status.textContent = item.狀態;
+
+        content.appendChild(anchor);
+        listItem.appendChild(date);
+        listItem.appendChild(status);
+        listItem.appendChild(content);
+        
+        rssFeed.appendChild(listItem);
+      });
+    }
+
+    // Google App Script 網頁應用程式 URL
+    var url = "https://script.google.com/macros/s/AKfycbwRMFQ8PqBcXgwM_WPlB9bAH0nVBc_26Y_Lu6X8sOny/dev"+"?callback=loadData2";
 
     jQuery.ajax({
       crossDomain: true,
