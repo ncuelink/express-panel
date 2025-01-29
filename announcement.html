@@ -32,18 +32,24 @@
     </section>
     
     <section class="campus-news">
-      <h2>📢 校園公告</h2>
+      <!-- <h2>📢 校園公告／活動報名</h2> -->
+      <div class="news-buttons">
+        <button class="news-tab active" onclick="loadCampusNews()">校園公告</button>
+        <button class="news-tab" onclick="loadAllActivities()">所有活動</button>
+        <button class="news-tab" onclick="loadGeneralLectures()">通識講座</button>
+      </div>
       <ul id="rss-feed" class="card-list">
         <li>Loading...</li>
       </ul>
     </section>
 
-    <section class="campus-news">
-      <h2>🎲 活動報名</h2>
-      <ul id="campaign-feed" class="card-list">
-        <li>Loading...</li>
-      </ul>
+    <section class="notifications">
+      <!-- <h2>通知</h2> -->
+      <div class="notification warning" style="font-weight: normal;">
+        🔔 小提醒：以上資訊狀態可能不是最即時的更新，正確資訊還是以<a href="https://aps.ncue.edu.tw/sign_up/index.php" target="_blank">學校網站</a>為主喔！
+      </div>
     </section>
+
   </main>
 
   <!-- <footer class="footer">
@@ -51,9 +57,25 @@
   </footer> -->
 
   <script>
-    function loadData(data) {
+    function updateActiveTab(selectedButton) {
+      document.querySelectorAll('.news-tab').forEach(button => {
+        button.classList.remove('active');
+      });
+      selectedButton.classList.add('active');
+    }
+
+    function loadRSSFeed(url) {
+      jQuery.ajax({
+        crossDomain: true,
+        url: url,
+        method: "GET",
+        dataType: "jsonp"
+      });
+    }
+
+    function loadData1(data) {
       const rssFeed = document.getElementById('rss-feed');
-      rssFeed.innerHTML = ""; // Clear the loading message
+      rssFeed.innerHTML = ""; // 清除現有內容
 
       data.forEach(item => {
         const listItem = document.createElement("li");
@@ -78,59 +100,8 @@
       });
     }
 
-    // Google App Script 網頁應用程式 URL
-    var url = "https://script.google.com/macros/s/AKfycbx09VvhU52vKsGgVYUt9vHGrVG9h5EBFeCuXhEOzBrmMB1N4xquVVP1R4JJZP45dbSY/exec"+"?callback=loadData";
-
-    jQuery.ajax({
-      crossDomain: true,
-      url: url,
-      method: "GET",
-      dataType: "jsonp"
-    });
-  </script>
-
-  <script>
-    function loadData(data) {
-      const rssFeed = document.getElementById('rss-feed');
-      rssFeed.innerHTML = ""; // Clear the loading message
-
-      data.forEach(item => {
-        const listItem = document.createElement("li");
-        listItem.className = "card";
-
-        const date = document.createElement("div");
-        date.className = "date";
-        date.textContent = item.Date;
-
-        const content = document.createElement("div");
-        content.className = "content";
-
-        const anchor = document.createElement("a");
-        anchor.href = item.URL;
-        anchor.target = "_blank";
-        anchor.textContent = item.Content;
-
-        content.appendChild(anchor);
-        listItem.appendChild(date);
-        listItem.appendChild(content);
-        rssFeed.appendChild(listItem);
-      });
-    }
-
-    // Google App Script 網頁應用程式 URL
-    var url = "https://script.google.com/macros/s/AKfycbx09VvhU52vKsGgVYUt9vHGrVG9h5EBFeCuXhEOzBrmMB1N4xquVVP1R4JJZP45dbSY/exec"+"?callback=loadData";
-
-    jQuery.ajax({
-      crossDomain: true,
-      url: url,
-      method: "GET",
-      dataType: "jsonp"
-    });
-  </script>
-
-  <script>
     function loadData2(data) {
-      const rssFeed = document.getElementById('campaign-feed');
+      const rssFeed = document.getElementById('rss-feed');
       rssFeed.innerHTML = ""; // Clear the loading message
 
       data.forEach(item => {
@@ -162,15 +133,28 @@
       });
     }
 
-    // Google App Script 網頁應用程式 URL
-    var url = "https://script.google.com/macros/s/AKfycbzgP6WUGCnUeAQtePUhcOOx4kjlM69gS60HmqhXijGU9tma1p72N42-5TZh5zsy8c5TCA/exec"+"?callback=loadData2";
+    function loadCampusNews() {
+      const rssFeed = document.getElementById('rss-feed');
+      rssFeed.innerHTML = "<li>Loading...</li>"; // Clear the loading message
+      updateActiveTab(document.querySelector('.news-tab:nth-child(1)'));
+      loadRSSFeed("https://script.google.com/macros/s/AKfycbx09VvhU52vKsGgVYUt9vHGrVG9h5EBFeCuXhEOzBrmMB1N4xquVVP1R4JJZP45dbSY/exec?callback=loadData1");
+    }
 
-    jQuery.ajax({
-      crossDomain: true,
-      url: url,
-      method: "GET",
-      dataType: "jsonp"
-    });
+    function loadAllActivities() {
+      const rssFeed = document.getElementById('rss-feed');
+      rssFeed.innerHTML = "<li>Loading...</li>"; // Clear the loading message
+      updateActiveTab(document.querySelector('.news-tab:nth-child(2)'));
+      loadRSSFeed("https://script.google.com/macros/s/AKfycbzgP6WUGCnUeAQtePUhcOOx4kjlM69gS60HmqhXijGU9tma1p72N42-5TZh5zsy8c5TCA/exec?callback=loadData2&mode=所有活動"); // 替換為所有活動的 JSONP 來源
+    }
+
+    function loadGeneralLectures() {
+      const rssFeed = document.getElementById('rss-feed');
+      rssFeed.innerHTML = "<li>Loading...</li>"; // Clear the loading message
+      updateActiveTab(document.querySelector('.news-tab:nth-child(3)'));
+      loadRSSFeed("https://script.google.com/macros/s/AKfycbzgP6WUGCnUeAQtePUhcOOx4kjlM69gS60HmqhXijGU9tma1p72N42-5TZh5zsy8c5TCA/exec?callback=loadData2&mode=通識講座"); // 替換為通識講座的 JSONP 來源
+    }
+
+    loadCampusNews(); // 預設載入校園公告
   </script>
 </body>
 </html>
