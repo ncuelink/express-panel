@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校園公告 | 彰師通 NcueLink</title>
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <!-- <header class="navbar">
+    <h1>
+      <a href="https://sites.google.com/view/ncuelink/"><img src="img/favicon.ico" alt="彰師通" width="25" height="25"> 彰師通 NcueLink</a>
+      <span style="font-size:small;"><i>Express Panel 測試版</i></span>
+    </h1>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="https://sites.google.com/view/ncuelink/">首頁</a></li>
+        <li><a href="https://aps.ncue.edu.tw/ncueact/index.php" target="_blank">行動彰師</a></li>
+        <li><a href="https://apkpure.com/tw/p/developer.angus.ncuelink" target="_blank">APP</a></li>
+      </ul>
+    </nav>
+  </header> -->
+
+  <main class="main-content">
+    <section class="notifications">
+      <!-- <h2>通知</h2> -->
+      <div class="notification info">✨ 歡迎使用 彰師通 NcueLink ~~~</div>
+      <div class="notification warning">🚧 行動彰師無法登入<a href="https://www.dcard.tw/f/ncue/p/240250433?cid=b27434e1-7452-4189-b731-bdf20ee0314a" target="_blank">解決方式</a>：
+        <span style="font-weight: normal;"><br><br> - 方法 1：「長按」行動彰師右上登入按鈕，即可正常登入！<br> - 方法 2：功能表 > 設定 > 開啟「改用學校網頁版行動彰師」</div></span></div>
+    </section>
+    
+    <section class="campus-news">
+      <!-- <h2>📢 校園公告／活動報名</h2> -->
+      <div class="news-tab-container">
+        <button class="news-tab active" onclick="loadCampusNews()">校園公告</button>
+        <button class="news-tab" onclick="loadAllActivities()">所有活動</button>
+        <button class="news-tab" onclick="loadGeneralLectures()">通識講座</button>
+      </div>
+      <ul id="rss-feed" class="card-list">
+        <li>Loading...</li>
+      </ul>
+    </section>
+
+    <section class="notifications">
+      <!-- <h2>通知</h2> -->
+      <div class="notification warning" style="font-weight: normal;">
+        🔔 小提醒：以上資訊狀態有可能不是最即時的更新，正確資訊還是以<a href="https://aps.ncue.edu.tw/sign_up/index.php" target="_blank">學校網站</a>為主喔！
+      </div>
+    </section>
+
+  </main>
+
+  <!-- <footer class="footer">
+    <p>© 2021-2025&ensp;彰師通 NcueLink.&ensp;All Rights Reserved.</p>
+  </footer> -->
+
+  <script>
+    function updateActiveTab(selectedButton) {
+      document.querySelectorAll('.news-tab').forEach(button => {
+        button.classList.remove('active');
+      });
+      selectedButton.classList.add('active');
+    }
+
+    function loadRSSFeed(url) {
+      jQuery.ajax({
+        crossDomain: true,
+        url: url,
+        method: "GET",
+        dataType: "jsonp"
+      });
+    }
+
+    function loadData1(data) {
+      const rssFeed = document.getElementById('rss-feed');
+      rssFeed.innerHTML = ""; // 清除現有內容
+
+      data.forEach(item => {
+        const listItem = document.createElement("li");
+        listItem.className = "card";
+
+        const date = document.createElement("div");
+        date.className = "date";
+        date.textContent = item.Date;
+
+        const content = document.createElement("div");
+        content.className = "content";
+
+        const anchor = document.createElement("a");
+        anchor.href = item.URL;
+        anchor.target = "_blank";
+        anchor.textContent = item.Content;
+
+        content.appendChild(anchor);
+        listItem.appendChild(date);
+        listItem.appendChild(content);
+        rssFeed.appendChild(listItem);
+      });
+    }
+
+    function loadData2(data) {
+      const rssFeed = document.getElementById('rss-feed');
+      rssFeed.innerHTML = ""; // Clear the loading message
+
+      data.forEach(item => {
+        const listItem = document.createElement("li");
+        listItem.className = "card";
+
+        const date = document.createElement("div");
+        date.className = "date";
+        date.textContent = item.活動日期;
+
+        const content = document.createElement("div");
+        content.className = "content";
+
+        const anchor = document.createElement("a");
+        anchor.href = item.URL;
+        anchor.target = "_blank";
+        anchor.textContent = item.活動名稱;
+
+        const status = document.createElement("div");
+        status.className = "date";
+        status.textContent = item.狀態;
+
+        content.appendChild(anchor);
+        listItem.appendChild(status);
+        listItem.appendChild(content);
+        listItem.appendChild(date);
+
+        rssFeed.appendChild(listItem);
+      });
+    }
+
+    function loadCampusNews() {
+      const rssFeed = document.getElementById('rss-feed');
+      rssFeed.innerHTML = "<li>Loading...</li>"; // Clear the loading message
+      updateActiveTab(document.querySelector('.news-tab:nth-child(1)'));
+      loadRSSFeed("https://script.google.com/macros/s/AKfycbx09VvhU52vKsGgVYUt9vHGrVG9h5EBFeCuXhEOzBrmMB1N4xquVVP1R4JJZP45dbSY/exec?callback=loadData1");
+    }
+
+    function loadAllActivities() {
+      const rssFeed = document.getElementById('rss-feed');
+      rssFeed.innerHTML = "<li>Loading...</li>"; // Clear the loading message
+      updateActiveTab(document.querySelector('.news-tab:nth-child(2)'));
+      loadRSSFeed("https://script.google.com/macros/s/AKfycbzgP6WUGCnUeAQtePUhcOOx4kjlM69gS60HmqhXijGU9tma1p72N42-5TZh5zsy8c5TCA/exec?callback=loadData2&mode=所有活動"); // 替換為所有活動的 JSONP 來源
+    }
+
+    function loadGeneralLectures() {
+      const rssFeed = document.getElementById('rss-feed');
+      rssFeed.innerHTML = "<li>Loading...</li>"; // Clear the loading message
+      updateActiveTab(document.querySelector('.news-tab:nth-child(3)'));
+      loadRSSFeed("https://script.google.com/macros/s/AKfycbzgP6WUGCnUeAQtePUhcOOx4kjlM69gS60HmqhXijGU9tma1p72N42-5TZh5zsy8c5TCA/exec?callback=loadData2&mode=通識講座"); // 替換為通識講座的 JSONP 來源
+    }
+
+    loadCampusNews(); // 預設載入校園公告
+  </script>
+</body>
+</html>
